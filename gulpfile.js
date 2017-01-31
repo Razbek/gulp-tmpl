@@ -17,10 +17,11 @@ gulp.task('browserSync',function(){
     broswerSync.init({
         server: {
             baseDir: 'src'
-        }
+        },
     })
-});
+})
 //gulp watch
 gulp.task('watch',['browserSync','sass'],function(){
     gulp.watch('src/scss/**/*.scss',['sass']);
+    
 });
