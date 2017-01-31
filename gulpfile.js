@@ -27,7 +27,7 @@ gulp.task('css', function () {
             .pipe(cssnano({
                 autoprefixer: {browsers: supported, add: true}
             }))
-            .pipe(gulp.dest('dist/css'))
+            .pipe(gulp.dest('src/css'))
             .pipe(browserSync.reload({
                 stream: true
             }))
