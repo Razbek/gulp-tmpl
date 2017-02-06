@@ -11,6 +11,7 @@ var runSequence = require('run-sequence');
 var autoprefixer = require('gulp-autoprefixer');
 var postcss = require('gulp-postcss');
 var cache = require('gulp-cache');
+var uncss = require ('gulp-uncss');
 
 var supported = [ //versions for autoprefixer
     'last 2 versions',
@@ -24,6 +25,9 @@ var supported = [ //versions for autoprefixer
 gulp.task('css', function () {
     return gulp.src(['src/scss/*.scss'])
             .pipe(sass())
+            .pipe(uncss({
+                html: ['src/**/*.html']
+            }))
             .pipe(cssnano({
                 autoprefixer: {browsers: supported, add: true}
             }))
