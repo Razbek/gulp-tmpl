@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <script>
+            var users = [
+                "Patrik",
+                "Lidická",
+                "České Budějovice"
+            ];
+            users[3] = "Čr";
+            users.splice(2, 1, "Ostrava");
+            document.write("Jmeno a adresa uzivatele: " + users, "<br />");
+            document.write("value: ", users.valueOf(), "<br />");
+            document.write("join ", users.join(", "), "<br />");
+            users.sort();
+            document.write("sort ", users.join(", "), "<br />");
+
+            var numbers = ["10", "5", "4", "8"];
+            users.sort();
+            document.write(users, "<br>");
+            numbers.sort(function (x, y) {
+                return x - y
+            });
+            document.write("cisla ", numbers, "<br />");
+
+            var combinedArray = numbers.concat(users);
+
+            document.write(combinedArray, "<br>");
+            users.unshift("ted")
+            for (i = 0; i < users.length; i++) {
+                document.write(users[i], "<br>");
+            }
+            ;
+        </script>
+    </body>
+</html>

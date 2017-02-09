@@ -1,5 +1,10 @@
 @import "_module/_m-box.scss";
 @import "stylesheets/_bootstrap.scss";
+body{
+    text-align: center;
+    width: 100%;
+    margin: auto;
+}
 .test{
     width: 150px;
     font-size: 20px ;

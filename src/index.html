@@ -4,12 +4,69 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="js/index.js" type="text/javascript"></script>
     </head>
     <body>
-        <div class="test">TODO write content ger geeeeeeeeeeghmgheee</div>
-        <div class="m-box">sger</div>
-        <div class="container">
-            <p class="text-red">sdf sdf sdfws </p>
-        </div>
+
+
+        <script>
+            var cust1 = {
+                name: "John",
+                street: "lidicka",
+                city: "ČB",
+                email: "info@pc.cz",
+                balance: 120.50,
+                payDownBal: function (amtPaid) {
+                    this.balance -= amtPaid;
+                },
+                addToBal: function (amtCharged) {
+                    this.balance += amtCharged;
+                }
+            };
+            document.write("Jmeno zakaznika: ", cust1.name, "<br />");
+            cust1.street = "puklicova";
+            document.write("Ulice zakaznika: ", cust1.street, "<br />");
+            cust1.country = "CZ";
+            document.write("Zeme zakaznika: ", cust1.country, "<br />");
+
+            for (var prop in cust1) {
+                if (cust1.hasOwnProperty(prop)) {
+                    document.write(prop, "<br />");
+                }
+            }
+            ;
+
+            function getInfo(cust) {
+                return cust1.name + "Žije v " + cust1.street + " ve městě " + cust1.city + " , státu " + cust1.country + " e-mail: " + cust1.email + " a jeho účet má hodnotu " + cust1.balance + " CZK";
+            }
+            document.write(getInfo(cust1), "<br />");
+
+
+            function Customer(name, street, city, state, email, balance) {
+                this.name = name;
+                this.street = street;
+                this.city = city;
+                this.state = state;
+                this.email = email;
+                this.balance = balance;
+                this.payDownBal = function(amtPaid){
+                    this.balance -= amtPaid;
+                };
+                this.addToBal = function(amtCharged){
+                    this.balance += amtCharged;
+                };
+            }
+            var cust2 = new Customer("Laska", "puklicova", "ČB", "CZ", "pajushka001", -8500);
+            cust2.addToBal(9000);
+            
+            document.write(getInfo(cust1), "<br />");
+            
+            Customer.prototype.isCreditAvail = true;
+            
+            Customer.prototype.toString = function(){
+                return this.name + "Žije v " + this.street + " ve městě " + this.city + " , státu " + this.state + " e-mail: " + this.email + " a jeho účet má hodnotu " + this.balance.toFixed(2) + " CZK" + this.isCreditAvail;;
+            };
+            document.write(cust2.toString());
+        </script>
     </body>
 </html>
