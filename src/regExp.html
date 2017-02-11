@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="js/index.js" type="text/javascript"></script>
+    </head>
+    <body>
+        
+        <script>
+            //Číslo od 0-9 délka 1 nebo 5 mezera(\s) velká písmena od a do z dělka 2 mezera s pokracovanim(\b - break word) maly pismena a-z delka 2 nevbo vic
+            var regPat = /[0-9]{1,5}\s[A-Z]{2}\b[a-z]{2,}/;
+            
+            var regPat = new RegExp("\d{1-5}\s[A-Z]{2}\b[a-z]{2,}");
+            
+            var longStr = "Patrik Lidická 10 České Budějovice 37001 774-996-903 razbek@seznam.cz";
+            
+            document.write(longStr.search(/[A-Za-z]{1,15}\s/) + "<br />");
+            
+            // [^0-9] cokoliv co neni číslo
+            // \w cokoliv A-Z a-z 0-9 nebo _
+            // \W cokoliv co neni vyse zminene
+            // \s mezera
+            // \S cokoliv co neni mezwera
+            // \d cokoliv co je cislo
+            // \D cokoliv co neni cislo
+            // \b mezera s pokracovanim
+            // \B cokoliv co neni mezera s pokracovanim
+            // [0-9]? 0 az 1 číslo
+            // [0-9]+ 1 a více čísel
+            // [0-9]* 0 a více čísel
+            // [Aa] 1 velké A nebo 1 malé a
+            
+            //  ^ zacatek stringu
+            // $ konec stringu
+            
+            //Email RegExp
+            var emailRegExp = /[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+            
+            document.write(longStr.match(emailRegExp) + "<br>");
+            document.write(longStr.match(/\d{4,5}/g));
+            document.write()
+            //Na konci match
+            // g - cokoliv co odpovida
+            // i - male i velke pismena
+            // m - 
+            
+            
+            </script>
+    </body>
+</html>
