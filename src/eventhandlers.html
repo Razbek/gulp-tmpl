@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="js/index.js" type="text/javascript"></script>
+    </head>
+    <body>
+
+
+        <script>
+            var cust1 = {
+                name: "John",
+                street: "lidicka",
+                city: "ČB",
+                email: "info@pc.cz",
+                balance: 120.50,
+                payDownBal: function (amtPaid) {
+                    this.balance -= amtPaid;
+                },
+                addToBal: function (amtCharged) {
+                    this.balance += amtCharged;
+                }
+            };
+            document.write("Jmeno zakaznika: ", cust1.name, "<br />");
+            cust1.street = "puklicova";
+            document.write("Ulice zakaznika: ", cust1.street, "<br />");
+            cust1.country = "CZ";
+            document.write("Zeme zakaznika: ", cust1.country, "<br />");
+
+            for (var prop in cust1) {
+                if (cust1.hasOwnProperty(prop)) {
+                    document.write(prop, "<br />");
+                }
+            }
+            ;
+
+            function getInfo(cust) {
+                return cust1.name + "Žije v " + cust1.street + " ve městě " + cust1.city + " , státu " + cust1.country + " e-mail: " + cust1.email + " a jeho účet má hodnotu " + cust1.balance + " CZK";
+            }
+            document.write(getInfo(cust1), "<br />");
+
+
+            function Customer(name, street, city, state, email, balance) {
+                this.name = name;
+                this.street = street;
+                this.city = city;
+                this.state = state;
+                this.email = email;
+                this.balance = balance;
+                this.payDownBal = function (amtPaid) {
+                    this.balance -= amtPaid;
+                };
+                this.addToBal = function (amtCharged) {
+                    this.balance += amtCharged;
+                };
+            }
+            var cust2 = new Customer("Laska", "puklicova", "ČB", "CZ", "pajushka001", -8500);
+            cust2.addToBal(9000);
+
+            document.write(getInfo(cust1), "<br />");
+
+            Customer.prototype.isCreditAvail = true;
+
+            Customer.prototype.toString = function () {
+                return this.name + "Žije v " + this.street + " ve městě " + this.city + " , státu " + this.state + " e-mail: " + this.email + " a jeho účet má hodnotu " + this.balance.toFixed(2) + " CZK" + this.isCreditAvail;
+                ;
+            };
+            document.write(cust2.toString());
+        </script>
+
+        <!--Parřagrapg show hide-->
+
+        <p id="first">First para</p>
+        <p id="second">second para</p>
+        <p id="third">third para</p>
+
+
+        <form name="formex">
+            <p>Text input</p>
+            <input type="text" name="mousex"/>Mouse X<br />
+            <input type="text" name="mousey"/>Mouse Y<br />
+
+            <input type="text" name="keypress"/>keypress<br />
+            <input type="text" name="mousebutton"/>mouseclick<br />
+
+        </form>
+
+        <script>
+            function showPara() {
+                document.getElementById("first").style.visibility = (document.formex.firstpara.checked) ? "visible" : "hidden";
+                document.getElementById("second").style.visibility = (document.formex.secondpara.checked) ? "visible" : "hidden";
+                document.getElementById("third").style.visibility = (document.formex.thirdpara.checked) ? "visible" : "hidden";
+            }
+
+            var mie = (navigator.appName == "Microsoft Internet Explorer") ? true : false;
+
+            if (!mie) {
+                document.captureEvents(Event.MOUSEMOVE);
+                document.captureEvents(Event.MOUSEDOWN);
+            }
+            document.onmousemove = mousePos;
+            document.onmousedown = mouseClicked;
+            document.onkeypress = keyPressed;
+            var mouseClick = 0;
+            var keyClicked = 0;
+            var mouseX = 0;
+            var mouseY = 0;
+
+            function mousePos(e) {
+                if (!mie) {
+                    mouseX = e.pageX;
+                    mouseY = e.pageY;
+                } else {
+                    mouseX = event.clientX + document.body.scrollLeft;
+                    mouseY = event.clientY + document.body.scrollTop;
+                }
+                document.formex.mousex.value = mouseX;
+                document.formex.mousey.value = mouseY;
+            }
+
+            function keyPressed(e) {
+                if (mie) {
+                    e = window.event;
+                    keyClicked = e.keyCode;
+                } else {
+                    keyClicked = String.fromCharCode(e.charCode);
+                }
+                if (!keyClicked) {
+                    return false;
+                }
+                document.formex.keypress.value = keyClicked;
+                return true;
+            }
+            function mouseClicked(e) {
+                if(mie){//for ie
+                    switch (event.button) {
+                        case 0:
+                            document.formex.mousebutton.value = "Left";
+                            break;
+                        case 1:
+                            document.formex.mousebutton.value = "Middle";
+                            break;
+                        default:
+                            document.formex.mousebutton.value = "Right";
+                            break;
+                    }
+                    return false;
+                }else{
+                    switch (e.which) {
+                        case 1:
+                            document.formex.mousebutton.value = "Left";
+                            break;
+                        case 2:
+                            document.formex.mousebutton.value = "Middle";
+                            break;
+                        default:
+                            document.formex.mousebutton.value = "Right";
+                            break;
+                    }
+                    return true;
+                }  
+            }
+        </script>
+
+    </body>
+</html>

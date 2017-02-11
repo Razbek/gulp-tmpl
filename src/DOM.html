@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="css/styles.css" rel="stylesheet" type="text/css"/>
+        <script src="js/index.js" type="text/javascript"></script>
+    </head>
+    <body>
+
+        <span id="spanEx" onclick="editNodeText('spanEx', 'new text is here')">Change this text</span>
+
+        <div id="divEx" onclick="editNodeText2('divEx', 'New text in div')">
+            <b>Some bold text</b><br />
+            <i>Some italic text</i><br />
+        </div>
+
+        <script>
+            function editNodeText(id, newText) {
+                var node = document.getElementById(id);
+                while (node.firstChild)
+                    node.removeChild(node.firstChild);
+                node.appendChild(document.createTextNode(newText));
+
+                document.getElementById(id).style.color = "red";
+                document.getElementById(id).style.position = "fixed";
+                document.getElementById(id).style.top = "50%";
+                document.getElementById(id).style.left = "50%";
+            }
+
+            function editNodeText2(id, newText) {
+                var node = document.getElementById(id);
+                node.removeChild(node.childNodes[1]);
+                node.childNodes[2].nodeValue = newText;
+                var newNode = document.createElement("hr");
+                node.appendChild(newNode);
+                var randText = document.createTextNode("aim new text");
+                node.appendChild(randText);
+            }
+
+        </script>
+    </body>
+</html>

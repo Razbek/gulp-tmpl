@@ -7,66 +7,46 @@
         <script src="js/index.js" type="text/javascript"></script>
     </head>
     <body>
-
-
+        
         <script>
-            var cust1 = {
-                name: "John",
-                street: "lidicka",
-                city: "ČB",
-                email: "info@pc.cz",
-                balance: 120.50,
-                payDownBal: function (amtPaid) {
-                    this.balance -= amtPaid;
-                },
-                addToBal: function (amtCharged) {
-                    this.balance += amtCharged;
-                }
-            };
-            document.write("Jmeno zakaznika: ", cust1.name, "<br />");
-            cust1.street = "puklicova";
-            document.write("Ulice zakaznika: ", cust1.street, "<br />");
-            cust1.country = "CZ";
-            document.write("Zeme zakaznika: ", cust1.country, "<br />");
-
-            for (var prop in cust1) {
-                if (cust1.hasOwnProperty(prop)) {
-                    document.write(prop, "<br />");
-                }
-            }
-            ;
-
-            function getInfo(cust) {
-                return cust1.name + "Žije v " + cust1.street + " ve městě " + cust1.city + " , státu " + cust1.country + " e-mail: " + cust1.email + " a jeho účet má hodnotu " + cust1.balance + " CZK";
-            }
-            document.write(getInfo(cust1), "<br />");
-
-
-            function Customer(name, street, city, state, email, balance) {
-                this.name = name;
-                this.street = street;
-                this.city = city;
-                this.state = state;
-                this.email = email;
-                this.balance = balance;
-                this.payDownBal = function(amtPaid){
-                    this.balance -= amtPaid;
-                };
-                this.addToBal = function(amtCharged){
-                    this.balance += amtCharged;
-                };
-            }
-            var cust2 = new Customer("Laska", "puklicova", "ČB", "CZ", "pajushka001", -8500);
-            cust2.addToBal(9000);
+            //Číslo od 0-9 délka 1 nebo 5 mezera(\s) velká písmena od a do z dělka 2 mezera s pokracovanim(\b - break word) maly pismena a-z delka 2 nevbo vic
+            var regPat = /[0-9]{1,5}\s[A-Z]{2}\b[a-z]{2,}/;
             
-            document.write(getInfo(cust1), "<br />");
+            var regPat = new RegExp("\d{1-5}\s[A-Z]{2}\b[a-z]{2,}");
             
-            Customer.prototype.isCreditAvail = true;
+            var longStr = "Patrik Lidická 10 České Budějovice 37001 774-996-903 razbek@seznam.cz";
             
-            Customer.prototype.toString = function(){
-                return this.name + "Žije v " + this.street + " ve městě " + this.city + " , státu " + this.state + " e-mail: " + this.email + " a jeho účet má hodnotu " + this.balance.toFixed(2) + " CZK" + this.isCreditAvail;;
-            };
-            document.write(cust2.toString());
-        </script>
+            document.write(longStr.search(/[A-Za-z]{1,15}\s/) + "<br />");
+            
+            // [^0-9] cokoliv co neni číslo
+            // \w cokoliv A-Z a-z 0-9 nebo _
+            // \W cokoliv co neni vyse zminene
+            // \s mezera
+            // \S cokoliv co neni mezwera
+            // \d cokoliv co je cislo
+            // \D cokoliv co neni cislo
+            // \b mezera s pokracovanim
+            // \B cokoliv co neni mezera s pokracovanim
+            // [0-9]? 0 az 1 číslo
+            // [0-9]+ 1 a více čísel
+            // [0-9]* 0 a více čísel
+            // [Aa] 1 velké A nebo 1 malé a
+            
+            //  ^ zacatek stringu
+            // $ konec stringu
+            
+            //Email RegExp
+            var emailRegExp = /[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}/;
+            
+            document.write(longStr.match(emailRegExp) + "<br>");
+            document.write(longStr.match(/\d{4,5}/g));
+            document.write()
+            //Na konci match
+            // g - cokoliv co odpovida
+            // i - male i velke pismena
+            // m - 
+            
+            
+            </script>
     </body>
 </html>
