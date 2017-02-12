@@ -7,7 +7,7 @@
         <script src="js/index.js" type="text/javascript"></script>
     </head>
     <body>
-
+        <!-- Puvodní kod -->
         <script>
 
             //Defaults for animal
@@ -110,6 +110,54 @@
 
 
             document.write(typeof (sophie));
-        </script>
+
+            //Object constructor
+
+            function Zakaznik(jmeno, ulice, mesto, stat, email, ucet) {
+                this.jmeno = jmeno;
+                this.ulice = ulice;
+                this.mesto = mesto;
+                this.stat = stat;
+                this.email = email;
+                this.ucet = ucet;
+                this.zaplatitUcet = function (castka) {
+                    this.ucet -= castka;
+                }
+                this.dobitUcet = function (castka) {
+                    this.ucet += castka;
+                }
+            }
+
+            var zakaznik1 = new Zakaznik("Patrik Čada", "Lidická 10", "České Budějovice", "Česká Republika", "razbek@seznam.cz", 1500);
+
+            function info(zakaznik) {
+                return zakaznik.jmeno + zakaznik.ulice;
+            }
+
+            document.write(info(zakaznik1));
+
+            var custArray = [
+                "Patrik",
+                "Tom",
+                "Knedl",
+                "Honic"
+            ];
+
+            var getCust = function (index) {
+                if (index > custArray.length) {
+                    throw new RangeError("Index musi byt >= 0 a <= " + custArray.length);
+                    ;
+                } else {
+                    return custArray[index];
+                }
+            }
+            try {
+                document.write("zakaznik: " + getCust(3), "<br>");
+            } catch (ex) {
+                if (ex instanceof RangeError) {
+                    document.write(ex.message + "<br>")
+                }
+            }
+</script>
     </body>
 </html>
