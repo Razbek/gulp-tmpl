@@ -80,8 +80,8 @@ and open the template in the editor.
                 return btn;
             }
             function vytvorOvladaciTlacitka() {
-                vytvorTlacitkoAVlozHo("Přidat řádek dolů", document.body)
-                vytvorTlacitkoAVlozHo("Přidat řádek nahoru", document.body)
+                vytvorTlacitkoAVlozHo("Přidat řádek dolů", document.body).onclick = pridejRadekDolu;
+                vytvorTlacitkoAVlozHo("Přidat řádek nahoru", document.body).onclick = pridejRadekNahoru;
                 vytvorTlacitkoAVlozHo("Přidat sloupec vlevo", document.body)
                 vytvorTlacitkoAVlozHo("Přidat sloupec vpravo", document.body)
                 vytvorTlacitkoAVlozHo("Odstranit řádek", document.body)
@@ -92,7 +92,31 @@ and open the template in the editor.
                 var mnozstviBunek = tabulka.firstElementChild.childNodes.length;
                 for (i = 0; i < mnozstviBunek; i++) {
                     novyRadek.appendChild(vytvorBunku());
-                    return novyRadek;
+                }
+                return novyRadek;
+            }
+            function indexRadkuAktivniBunky() {
+                var cilHledani = tabulka.childNodes; //radky tabulky
+                var hledanyPrvek = aktivniBunka.parentElement.parentElement; //input > td > tr na která právě jsme
+                return Array.prototype.indexOf.call(cilHledani, hledanyPrvek); //vrati index tr na ktere prave jsme
+            }
+            function indexSloupceAktivniBunky() {
+                var bunkyVRadku = aktivniBunka.parentElement.parentElement.childNodes; //list bunek podle radku na kterem jsem
+                var td = aktivniBunka.parentElement;
+                return Array.prototype.indexOf.call(bunkyVRadku, td); //Vráti pozici bunky ze seznamu bunek
+            }
+            function pridejRadekNahoru() {
+                var radek = vytvorRadek();
+                var indexVybraneho = indexRadkuAktivniBunky();
+                tabulka.insertBefore(radek, tabulka.childNodes[indexVybraneho]);
+            }
+            function pridejRadekDolu() {
+                var radek = vytvorRadek();
+                var indexVybraneho = indexRadkuAktivniBunky();
+                if (tabulka.lastChild == tabulka.childNodes[indexVybraneho]) {
+                    tabulka.appendChild(radek)
+                } else {
+                    tabulka.insertBefore(radek, tabulka.childNodes[indexVybraneho + 1])
                 }
             }
         </script>
