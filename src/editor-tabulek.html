@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <style>
+            table {
+                border-spacing:0;
+                border: 1px solid black;
+                width: 500px;
+            }
+            table, table td {
+                padding:0;
+                margin: 0;
+            }
+            table td {
+                border: 1px solid black;
+            }
+            table td input {
+                padding:0;
+                margin: 0;
+                width: 100%;
+                border: 0px solid transparent;
+                height: 100%;
+            }
+        </style>
+
+
+
+
+
+        <script>
+            window.onload = function () {
+                vytvorOvladaciTlacitka();
+                vytvorVychoziTabulku();
+
+            }
+            var tabulka;
+            var vychoziVelikostX = 5;
+            var vychoziVelikostY = 3;
+
+            var aktivniBunka;
+
+            function vytvorBunku() {
+                var td = document.createElement("td");
+                var tdInput = document.createElement("input");
+
+                tdInput.type = "text";
+                tdInput.onfocus = function () {
+                    aktivniBunka = this;
+                }
+                td.appendChild(tdInput);
+                return td;
+            }
+            function vytvorVychoziTabulku() {
+                tabulka = document.createElement("table");
+                document.body.appendChild(tabulka);
+
+                for (y = 0; y < vychoziVelikostY; y++) {
+                    var tr = document.createElement("tr");
+                    tabulka.appendChild(tr);
+                    for (x = 0; x < vychoziVelikostX; x++) {
+                        tr.appendChild(vytvorBunku());
+                    }
+                }
+            }
+
+            function vytvorTlacitkoAVlozHo(popisek, rodic) {
+                var btn = document.createElement("button");
+                btn.textContent = popisek;
+                rodic.appendChild(btn);
+                return btn;
+            }
+            function vytvorOvladaciTlacitka() {
+                vytvorTlacitkoAVlozHo("Přidat řádek dolů", document.body)
+                vytvorTlacitkoAVlozHo("Přidat řádek nahoru", document.body)
+                vytvorTlacitkoAVlozHo("Přidat sloupec vlevo", document.body)
+                vytvorTlacitkoAVlozHo("Přidat sloupec vpravo", document.body)
+                vytvorTlacitkoAVlozHo("Odstranit řádek", document.body)
+                vytvorTlacitkoAVlozHo("Odstranit sloupec", document.body)
+            }
+            function vytvorRadek() {
+                var novyRadek = document.createElement("tr");
+                var mnozstviBunek = tabulka.firstElementChild.childNodes.length;
+                for (i = 0; i < mnozstviBunek; i++) {
+                    novyRadek.appendChild(vytvorBunku());
+                    return novyRadek;
+                }
+            }
+        </script>
+    </body>
+</html>

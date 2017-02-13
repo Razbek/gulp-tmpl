@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Design patterns</h1>
+        <h2>Single Pattern</h2>
+        <script>
+            function Hero(name) {
+                if (typeof Hero.instance === 'object') {
+                    return Hero.instance;
+                }
+                this.name = name;
+                Hero.instance = this;
+                return this;
+            }
+            var patasHero = Hero("patas");
+            document.write("nas hrdina je " + patasHero.name + "<br>");
+            var patasHero = Hero("knedl");
+            document.write("nas hrdina je " + patasHero.name + "<br>");
+        </script>
+        <h2>Factory Pattern</h2>
+        <script>
+            function Sword(desc) {
+                this.weaponType = "Sword";
+                this.material = desc.material || "Steel";
+                this.style = desc.style || "Longsword";
+                this.hasMagic = desc.hasMagic || false;
+            }
+
+            function Bow(desc) {
+                this.weaponType = "Bow";
+                this.material = desc.material || "Wood";
+                this.style = desc.style || "LongBow";
+                this.hasMagic = desc.hasMagic || false;
+            }
+
+            function WeaponFactory() {
+
+            }
+            ;
+            WeaponFactory.prototype.makeWeapon = function (desc) {
+                var weaponClass = null;
+
+                if (desc.weaponType === "Sword") {
+                    weaponClass = Sword;
+                } else if (desc.weaponType === "Bow") {
+                    weaponClass = Bow;
+                } else {
+                    return false;
+                }
+                return new weaponClass(desc);
+            }
+
+            var myWeaponFact = new WeaponFactory();
+            var bladeFist = myWeaponFact.makeWeapon({
+                weaponType: "Sword",
+                material: "Dark Iron",
+                style: "Scythe",
+                hasMagic: true
+            });
+
+            document.write(bladeFist.weaponType + " typu " + bladeFist.style + ", vyroben z " + bladeFist.material + "<br>");
+        </script>
+        <h2>Decorative Pattern</h2>
+        <script>
+            function Pizza(price) {
+                this.price = price || 10;
+            }
+            Pizza.prototype.getPrice = function () {
+                return this.price;
+            }
+            function ExtraCheese(pizza) {
+                var prevPrice = pizza.price;
+
+                pizza.price = prevPrice + 1;
+            }
+
+            var myPizza = new Pizza(10);
+            ExtraCheese(myPizza);
+            document.write(myPizza.price)
+        </script>
+        <h2>Observer Pattern</h2>
+        <script>
+            var Obervable = function () {
+                this.subscribers = [];
+            }
+            Obervable.prototype = {
+                subscribe: function (subscriber) {
+                    this.subscribers.push(subscriber);
+                },
+                unsubscribe: function (unsubscriber) {
+                    for (i = 0; i < this.subscribers.length; i++) {
+                        if (this.subscribers[i] === unsubscriber) {
+                            this.subscribers.splice(i, 1);
+
+                            return unsubscriber.name;
+                        }
+                    }
+                },
+                publish: function (data) {
+                    for (i = 0; i < this.subscribers.length; i++) {
+                        this.subscribers[i].recieveData(data);
+                    }
+                }
+            };
+
+            var PatrikCada = {
+                name: "Patrik Čada",
+                recieveData: function (data) {
+                    document.write(this.name + " obdržel info " + data + "<br>")
+                }
+            }
+            var Pavlasro = {
+                name: "Pavla sro",
+                recieveData: function (data) {
+                    document.write(this.name + " obdržel info " + data + "<br>")
+                }
+            }
+
+            observable = new Obervable();
+
+            observable.subscribe(PatrikCada);
+            observable.subscribe(Pavlasro);
+
+            observable.publish("Pavlinka ma salu <br>");
+
+            document.write(observable.unsubscribe(PatrikCada) + " Unsubscrined <br>");
+            observable.publish("Pata je unavenej")
+        </script>
+    </body>
+</html>

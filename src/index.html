@@ -7,130 +7,124 @@
         <script src="js/index.js" type="text/javascript"></script>
     </head>
     <body>
-        <h1>Design patterns</h1>
-        <h2>Single Pattern</h2>
         <script>
-            function Hero(name) {
-                if (typeof Hero.instance === 'object') {
-                    return Hero.instance;
-                }
-                this.name = name;
-                Hero.instance = this;
-                return this;
+            var datum = new Date();
+            if (datum.getHours() >= 18) {
+                document.write("Je po šesté hodine");
+            } else if (datum.getHours() <= 12) {
+                document.write("Je ráno");
             }
-            var patasHero = Hero("patas");
-            document.write("nas hrdina je " + patasHero.name + "<br>");
-            var patasHero = Hero("knedl");
-            document.write("nas hrdina je " + patasHero.name + "<br>");
+
+            //var vek = prompt("Zadej svuj vek")
+            //document.write((vek >= 18) ? "Zletilý" : "Nezletilý");
         </script>
-        <h2>Factory Pattern</h2>
+
+        <h1>Hrdina <span id="heroName"></span></h1>
+        <span id="zbran"></span><br/>
+        <span id="zbroj"></span><br/>
+        <label for="heroName">Zadejte jméno svého hrdiny</label><br />
+        <input type="text" id="setHeroName" /><br/>
+        <label for="heroWeapon">Zadejte zbran svého hrdiny</label><br />
+        <input type="text" id="setHeroWeapon" /><br />
+        <label for="heroArmor">Zadejte zbroj svého hrdiny</label><br />
+        <input type="text" id="setHeroArmor" /><br />
+        <button type="submit" onclick="createHero()">Vytvořit hrdinu</button>
+
         <script>
-            function Sword(desc) {
-                this.weaponType = "Sword";
-                this.material = desc.material || "Steel";
-                this.style = desc.style || "Longsword";
-                this.hasMagic = desc.hasMagic || false;
-            }
+            function createHero() {
+                var jmeno = document.getElementById("setHeroName").value;
+                var zbran = document.getElementById("setHeroWeapon").value;
+                var zbroj = document.getElementById("setHeroArmor").value;
 
-            function Bow(desc) {
-                this.weaponType = "Bow";
-                this.material = desc.material || "Wood";
-                this.style = desc.style || "LongBow";
-                this.hasMagic = desc.hasMagic || false;
-            }
-
-            function WeaponFactory() {
-
-            }
-            ;
-            WeaponFactory.prototype.makeWeapon = function (desc) {
-                var weaponClass = null;
-
-                if (desc.weaponType === "Sword") {
-                    weaponClass = Sword;
-                } else if (desc.weaponType === "Bow") {
-                    weaponClass = Bow;
+                if (jmeno.length !== 0) {
+                    document.getElementById("heroName").innerHTML = jmeno;
+                    document.getElementById("zbran").innerHTML = zbran;
+                    document.getElementById("zbroj").innerHTML = zbroj;
                 } else {
-                    return false;
+                    return alert("Zadejte jméno");
                 }
-                return new weaponClass(desc);
+                return true;
             }
 
-            var myWeaponFact = new WeaponFactory();
-            var bladeFist = myWeaponFact.makeWeapon({
-                weaponType: "Sword",
-                material: "Dark Iron",
-                style: "Scythe",
-                hasMagic: true
-            });
-
-            document.write(bladeFist.weaponType + " typu " + bladeFist.style + ", vyroben z " + bladeFist.material + "<br>");
-        </script>
-        <h2>Decorative Pattern</h2>
-        <script>
-            function Pizza(price) {
-                this.price = price || 10;
-            }
-            Pizza.prototype.getPrice = function () {
-                return this.price;
-            }
-            function ExtraCheese(pizza) {
-                var prevPrice = pizza.price;
-
-                pizza.price = prevPrice + 1;
+            var Hero = function (jmeno, zbran, zbroj) {
+                this.jmeno = jmeno;
+                this.zbran = zbran;
+                this.zbroj = zbroj;
             }
 
-            var myPizza = new Pizza(10);
-            ExtraCheese(myPizza);
-            document.write(myPizza.price)
-        </script>
-        <h2>Observer Pattern</h2>
-        <script>
-            var Obervable = function () {
-                this.subscribers = [];
-            }
-            Obervable.prototype = {
-                subscribe: function (subscriber) {
-                    this.subscribers.push(subscriber);
+            Hero.prototype = {
+                set hero(parts) {
+                    var vlastnosti = parts.toString().split(", ");
+                    this.jmeno = vlastnosti[0] || "Hrdina neexistuje";
+                    this.zbran = vlastnosti[1] || "Beze zbraně";
+                    this.zbroj = vlastnosti[2] || "Beze zbroje";
                 },
-                unsubscribe: function (unsubscriber) {
-                    for (i = 0; i < this.subscribers.length; i++) {
-                        if (this.subscribers[i] === unsubscriber) {
-                            this.subscribers.splice(i, 1);
-
-                            return unsubscriber.name;
-                        }
-                    }
-                },
-                publish: function (data) {
-                    for (i = 0; i < this.subscribers.length; i++) {
-                        this.subscribers[i].recieveData(data);
-                    }
+                get hero() {
+                    return this.jmeno + " " + this.zbran + " " + this.zbroj;
                 }
             };
+            var patrik = new Hero("Patrik", "meč", "vesta");
 
-            var PatrikCada = {
-                name: "Patrik Čada",
-                recieveData: function (data) {
-                    document.write(this.name + " obdržel info " + data + "<br>")
+        </script>
+
+        <h2>Malá násoblika</h2>
+        <script>
+            document.write('<table border="1">');
+            for (j = 1; j <= 10; j++) {
+                document.write("<tr>");
+                for (i = 1; i <= 10; i++) {
+                    document.write("<td>" + i * j + "</td>")
                 }
+                document.write("</tr>");
             }
-            var Pavlasro = {
-                name: "Pavla sro",
-                recieveData: function (data) {
-                    document.write(this.name + " obdržel info " + data + "<br>")
-                }
+            document.write('</table>');
+
+
+            /* //Cislo na Ntou
+             var cislo = prompt("Zadejte číslo");
+             var exponent = prompt("zadejte na kolikatou");
+             
+             var nasobek = cislo;
+             for (i = 1; i <=2 (exponent - 1); i++) {
+             nasobek = nasobek * cislo;
+             }
+             console.log(nasobek);
+             */
+
+            var pole = new Array();
+
+            for (i = 0; i < 10; i++) {
+                pole[i] = i + 1
+
             }
-
-            observable = new Obervable();
-
-            observable.subscribe(PatrikCada);
-            observable.subscribe(Pavlasro);
+            for (i in pole) {
+                document.write(pole[i] + " ");
+            }
+            var dnyPole = new Array("Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota");
+            var den = new Date().getDay();
+            console.log(den)
+            document.write("Dnes je " + dnyPole[den]);
             
-            observable.publish("Pavlinka ma salu <br>");
+        </script>
+        
+        <h2>funkce</h2>
+        <button onclick="pozdrav('Patrik')">Pozdrav</button>
+        <script>
+          function pozdrav(jmeno){
+              return alert("Ahoj" + jmeno);
+          }
+        </script>
+        
+        <h2>Kalkulačka</h2>
+        <input id="num1" type="number" /> + <input id="num2" type="number" /> <button onclick="secti()">Sečti</button> 
+        <script>
+            function secti(){
+                var num1 = document.getElementById("num1").value;
+                var num2 = document.getElementById("num2").value;
+                var vysledek = parseInt(num1) + parseInt(num2);
+                console.log (vysledek);
+            }
             
-            document.write(observable.unsubscribe(PatrikCada) + " Unsubscrined <br>");
-            observable.publish("Pata je unavenej")
         </script>
     </body>
 </html>
